@@ -81,15 +81,18 @@ class BostonFoodTrucks {
 			}
 		}
 		
+		// Go through all food trucks
 		for ($i = 0; $i < $this->food_truck_nodes['locations']->length; $i++) {
 			$matches = 0;
 			
+			// Perform filters on this food truck
 			foreach ($set_options as $key => $value) {
 				if ($value and call_user_func_array(array($this, $key), array($i, $options[$key]))) {
 					$matches++;
 				}
 			}
 			
+			// If all filters pass, add this truck to the list
 			if ($matches == sizeof($set_options)) {
 				$this->_add_food_truck($i);
 			}
@@ -100,6 +103,7 @@ class BostonFoodTrucks {
 	}
 	
 	
+	// Filtering functions
 	private function filter ($list_name, $list_index, $array) {
 		return in_array($this->food_truck_nodes[$list_name]->item($list_index)->nodeValue, $array);
 	}
@@ -125,6 +129,7 @@ class BostonFoodTrucks {
 	}
 	
 	
+	// Add food truck to the final list
 	private function _add_food_truck ($list_index) {
 		$this->food_truck_output['food_trucks'][] = array(
 			'company' => $this->food_truck_nodes['companies']->item($list_index)->nodeValue,
@@ -136,6 +141,7 @@ class BostonFoodTrucks {
 	}
 	
 	
+	// Show lunch trucks today
 	public function trucks_now () {
 		return $this->schedule(array(
 			'days_of_week' => array(date('l')),
