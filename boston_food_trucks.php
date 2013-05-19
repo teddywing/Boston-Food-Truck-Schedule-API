@@ -20,7 +20,7 @@ class BostonFoodTrucks {
 		'locations' => null,
 	);
 	
-	private $food_truck_output = array(
+	public $food_truck_output = array(
     	'food_trucks' => array()
 	);
 	
@@ -38,7 +38,7 @@ class BostonFoodTrucks {
 		'Boston Common, Brewer Fountain by Tremont and Boylston Streets',
 		'(24) Financial District, Pearl Street at Franklin',
 		'(22) Financial District, Milk and Kilby Streets',
-		'Downtown - City Hall Plaza, Fisher Park'
+		'Downtown - City Hall Plaza, Fisher Park',
         'City Hall Plaza, Fisher Park'
 	);
 	
@@ -62,49 +62,36 @@ class BostonFoodTrucks {
 	}
 	
 	
-	function schedule ($options = array()) {
+	public function schedule ($options = array()) {
+		$available_options = array(
+			'trucks' => isset($options['trucks']),
+			'days_of_week' => isset($options['days_of_week']),
+			'times_of_day' => isset($options['times_of_day']),
+			'locations' => isset($options['locations'])
+		);
 		$has_days = isset($options['days_of_week']);
 		$has_times = isset($options['times_of_day']);
 		$has_locations = isset($options['locations']);
 		
+		// Copy set options into their own array
+		$set_options = array();
+		foreach ($available_options as $key => $value) {
+			if ($value) {
+				$set_options[$key] = $value;
+			}
+		}
+		
 		for ($i = 0; $i < $this->food_truck_nodes['locations']->length; $i++) {
-			if (! $has_days and ! $has_times and ! $has_locations) {
+			$matches = 0;
+			
+			foreach ($set_options as $key => $value) {
+				if ($value and call_user_func_array(array($this, $key), array($i, $options[$key]))) {
+					$matches++;
+				}
+			}
+			
+			if ($matches == sizeof($set_options)) {
 				$this->_add_food_truck($i);
-			}
-			else if ($has_days and ! $has_times and ! $has_locations) {
-				if (in_array($this->food_truck_nodes['days_of_week']->item($i)->nodeValue, $options['days_of_week'])) {
-					$this->_add_food_truck($i);
-				}
-			}
-			else if (! $has_days and $has_times and ! $has_locations) {
-				if (in_array($this->food_truck_nodes['times_of_day']->item($i)->nodeValue, $options['times_of_day'])) {
-					$this->_add_food_truck($i);
-				}
-			}
-			else if (! $has_days and ! $has_times and $has_locations) {
-				if (in_array($this->food_truck_nodes['locations']->item($i)->nodeValue, $options['locations'])) {
-					$this->_add_food_truck($i);
-				}
-			}
-			else if ($has_days and $has_times and ! $has_locations) {
-				if (in_array($this->food_truck_nodes['days_of_week']->item($i)->nodeValue, $options['days_of_week']) and in_array($this->food_truck_nodes['times_of_day']->item($i)->nodeValue, $options['times_of_day'])) {
-					$this->_add_food_truck($i);
-				}
-			}
-			else if ($has_days and ! $has_times and $has_locations) {
-				if (in_array($this->food_truck_nodes['days_of_week']->item($i)->nodeValue, $options['days_of_week']) and in_array($this->food_truck_nodes['locations']->item($i)->nodeValue, $options['locations'])) {
-					$this->_add_food_truck($i);
-				}
-			}
-			else if (! $has_days and $has_times and $has_locations) {
-				if (in_array($this->food_truck_nodes['times_of_day']->item($i)->nodeValue, $options['times_of_day']) and in_array($this->food_truck_nodes['locations']->item($i)->nodeValue, $options['locations'])) {
-					$this->_add_food_truck($i);
-				}
-			}
-			else if ($has_days and $has_times and $has_locations) {
-				if (in_array($this->food_truck_nodes['days_of_week']->item($i)->nodeValue, $options['days_of_week']) and in_array($this->food_truck_nodes['times_of_day']->item($i)->nodeValue, $options['times_of_day']) and in_array($this->food_truck_nodes['locations']->item($i)->nodeValue, $options['locations'])) {
-					$this->_add_food_truck($i);
-				}
 			}
 		}
 		
@@ -113,7 +100,32 @@ class BostonFoodTrucks {
 	}
 	
 	
-	function _add_food_truck ($list_index) {
+	private function filter ($list_name, $list_index, $array) {
+		return in_array($this->food_truck_nodes[$list_name]->item($list_index)->nodeValue, $array);
+	}
+	
+	
+	private function trucks ($list_index, $array) {
+		return $this->filter('trucks', $list_index, $array);
+	}
+	
+	
+	private function days_of_week ($list_index, $array) {
+		return $this->filter('days_of_week', $list_index, $array);
+	}
+	
+	
+	private function times_of_day ($list_index, $array) {
+		return $this->filter('times_of_day', $list_index, $array);
+	}
+	
+	
+	private function locations ($list_index, $array) {
+		return $this->filter('locations', $list_index, $array);
+	}
+	
+	
+	private function _add_food_truck ($list_index) {
 		$this->food_truck_output['food_trucks'][] = array(
 			'company' => $this->food_truck_nodes['companies']->item($list_index)->nodeValue,
 			'company_url' => $this->food_truck_nodes['company_urls']->item($list_index)->nodeValue,
@@ -124,7 +136,7 @@ class BostonFoodTrucks {
 	}
 	
 	
-	function trucks_now () {
+	public function trucks_now () {
 		return $this->schedule(array(
 			'days_of_week' => array(date('l')),
 			'times_of_day' => array('Lunch')
