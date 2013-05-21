@@ -5,11 +5,11 @@ error_reporting(0);
 require_once('boston_food_trucks.php');
 
 $BostonFoodTrucks = new BostonFoodTrucks;
-$schedule = json_decode($BostonFoodTrucks->schedule(array(
+$schedule = $BostonFoodTrucks->schedule(array(
 	'days_of_week' => array(date('l')),
 	'times_of_day' => array('Lunch'),
 	'locations'    => $BostonFoodTrucks->locations_downtown
-)));
+));
 
 ?>
 <!doctype html>
@@ -103,14 +103,14 @@ $schedule = json_decode($BostonFoodTrucks->schedule(array(
 	
 	<div role="main">
 		<table id="trucks">
-			<?php foreach ($schedule->food_trucks as $truck): ?>
+			<?php foreach ($schedule['food_trucks'] as $truck): ?>
 				<tr>
 					<td class="company">
-						<a href="<?= $truck->company_url ?>"><?= $truck->company ?></a>
+						<a href="<?= $truck['company_url'] ?>"><?= $truck['company'] ?></a>
 					</td>
 					
 					<td class="location">
-						<?= $truck->location ?>
+						<?= $truck['location'] ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>

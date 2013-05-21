@@ -52,4 +52,4 @@ $Filters->get_filters($R->parameters);
 
 // Output JSON from food truck API
 $BostonFoodTrucks = new BostonFoodTrucks;
-echo $BostonFoodTrucks->schedule($Filters->filters);
+echo json_encode($BostonFoodTrucks->schedule($Filters->filters));

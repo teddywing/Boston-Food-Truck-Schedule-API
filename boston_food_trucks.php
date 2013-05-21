@@ -99,7 +99,7 @@ class BostonFoodTrucks {
 		}
 		
 		
-		return json_encode($this->food_truck_output);
+		return $this->food_truck_output;
 	}
 	
 	
