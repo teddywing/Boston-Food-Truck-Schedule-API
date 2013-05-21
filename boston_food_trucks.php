@@ -43,7 +43,7 @@ class BostonFoodTrucks {
 	);
 	
 	
-	function __construct () {
+	public function __construct () {
 		$this->food_truck_html = file_get_contents($this->food_truck_schedule_url);
 		$this->dom = new DOMDocument;
 		$this->dom->loadHTML($this->food_truck_html);
