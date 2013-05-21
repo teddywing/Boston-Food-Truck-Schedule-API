@@ -120,7 +120,7 @@ $schedule = $BostonFoodTrucks->schedule(array(
 	<footer>
 		<hr />
 		
-		Created by <a href="http://teddywing.com">Teddy Wing</a> | <a href="#">Boston Food Truck Schedule API</a>
+		Created by <a href="http://teddywing.com">Teddy Wing</a> | <a href="https://github.com/teddywing/Boston-Food-Truck-Schedule-API">Boston Food Truck Schedule API</a>
 	</footer>
 </body>
 </html>
