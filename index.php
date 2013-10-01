@@ -106,7 +106,11 @@ $schedule = $BostonFoodTrucks->schedule(array(
 			<?php foreach ($schedule['food_trucks'] as $truck): ?>
 				<tr>
 					<td class="company">
-						<a href="<?= $truck['company_url'] ?>"><?= $truck['company'] ?></a>
+						<?php if ($truck['company_url']): ?>
+							<a href="<?= $truck['company_url'] ?>"><?= $truck['company'] ?></a>
+						<?php else: ?>
+							<?= $truck['company'] ?>
+						<?php endif; ?>
 					</td>
 					
 					<td class="location">
