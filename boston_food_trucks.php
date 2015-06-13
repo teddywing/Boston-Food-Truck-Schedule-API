@@ -21,7 +21,7 @@ class BostonFoodTrucks {
 	);
 	
 	public $food_truck_output = array(
-    	'food_trucks' => array()
+		'food_trucks' => array()
 	);
 	
 	public $locations_downtown = array(
