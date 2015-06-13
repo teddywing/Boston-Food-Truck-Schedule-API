@@ -25,9 +25,9 @@ class Filters {
 	
 	public function __construct () {
 		$this->keys = array('trucks',
-							'days_of_week',
-							'times_of_day',
-							'locations');
+			'days_of_week',
+			'times_of_day',
+			'locations');
 	}
 	
 	
