@@ -25,21 +25,22 @@ class BostonFoodTrucks {
 	);
 	
 	public $locations_downtown = array(
-		'(25) Innovation District, Seaport Blvd at Thomson',
-		'(23) Chinatown/Park Street, Boylston St near Washington St',
-		'Rose Kennedy Greenway, Beach Street in Chinatown',
-		'Rose Kennedy Greenway, Dewey Square, South Station',
-		'Greenway (at High St #1)',
-		'Rose Kennedy Greenway,Congress Street near Wharf',
-		'Greenway - Rose Kennedy Greenway, Milk Street by Aquarium',
-		'Rose Kennedy Greenway, Milk Street by Aquarium',
-		'Rose Kennedy Greenway @ State Street',
-		'Rose Kennedy Greenway, Cross and Hanover Streets',
 		'Boston Common, Brewer Fountain by Tremont and Boylston Streets',
-		'(24) Financial District, Pearl Street at Franklin',
-		'(22) Financial District, Milk and Kilby Streets',
-		'Downtown - City Hall Plaza, Fisher Park',
-        'City Hall Plaza, Fisher Park'
+		'Carousel',
+		'Chinatown, Boylston St near Washington St',
+		'City Hall Plaza, Fisher Park',
+		'Dudley Square at Dudley street',
+		'Financial District, Milk and Kilby Streets',
+		'Financial District, Pearl Street at Franklin',
+		'Greenway, Chinatown Park',
+		'Greenway, Dewey Square Park Plaza',
+		'Greenway, Dewey Square Park at Congress St',
+		'Greenway, Echelman Sculpture at Oliver St',
+		'Greenway, Fort Point Park',
+		'Greenway, Rings Fountain at Milk St',
+		'Greenway, Rowes Wharf Plaza',
+		'Hurley Building, New Chardon and Cambridge St',
+		'Innovation District, Seaport Blvd at Boston Wharf Rd'
 	);
 	
 	
